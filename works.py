@@ -174,7 +174,7 @@ def main():
         prediction = predict_outcome(input_data)
         display_insights(prediction[0])
 
-    st.write("## Debugging Info", className="debug-info")
+    st.write("## Feature Significance", className="debug-info")
  
     feature_importances = pd.Series(rf_classifier.feature_importances_, index=X.columns)
     st.bar_chart(feature_importances)
