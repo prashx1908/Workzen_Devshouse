@@ -8,7 +8,6 @@ secondary_color = "#C496A6"
 bg_color = "#F4EEFF"
 debug_color = "#800080"  # Purple color for debugging info
 
-
 def set_custom_theme():
     st.markdown(
         f"""
@@ -78,15 +77,15 @@ business_travel_map = {'Non-Travel': 0, 'Travel_Rarely': 1, 'Travel_Frequently':
 education_map = {'Below College': 1, 'College': 2, 'Bachelor': 3, 'Master': 4, 'Doctor': 5}
 education_field_map = {'Computer Science': 1, 'Medical': 2, 'Engineering': 3, 'Technical Degree': 4, 'Human Resources': 5, 'Other': 6}
 environment_satisfaction_map = {'Low': 1, 'Medium': 2, 'High': 3, 'Very High': 4}
-gender_map = {'Male': 1, 'Female': 2}
+gender_map = {'Male': 0, 'Female': 1}
 job_involvement_map = {'Low': 1, 'Medium': 2, 'High': 3, 'Very High': 4}
 job_role_map = {
-    'Software Developer': 1, 'Data Scientist': 2, 'Security Engineer': 3,
-    'Research Engineer': 4, 'ML Engineer': 5, 'Manager': 6,
-    'Cloud Architect': 7, 'Web Developer': 8, 'Network Engineer': 9
+    'Software Developer': 0, 'Data Scientist': 1, 'Security Engineer': 2,
+    'Research Engineer': 3, 'ML Engineer': 4, 'Manager': 5,
+    'Cloud Architect': 6, 'Web Developer': 7, 'Network Engineer': 8
 }
 job_satisfaction_map = {'Low': 1, 'Medium': 2, 'High': 3, 'Very High': 4}
-marital_status_map = {'Single': 1, 'Married': 2, 'Divorced': 3}
+marital_status_map = {'Single': 0, 'Married': 1, 'Divorced': 2}
 over_time_map = {'No': 0, 'Yes': 1}
 
 
@@ -142,21 +141,21 @@ def predict_outcome(input_data):
 
 
 def display_insights(predicted_label):
-    if predicted_label == 0:
+    if predicted_label == 1:
         st.write("🎉 **Congratulations! You have a healthy work-life balance.** 🎉")
         st.write("- Keep maintaining a balance between your professional and personal life.")
         st.write("- Consider engaging in hobbies or activities outside of work to continue feeling fulfilled.")
-    elif predicted_label == 1:
+    elif predicted_label == 2:
         st.write("⏰ **Your work-life balance seems slightly affected.** ⏰")
         st.write("- Prioritize time management techniques to allocate more time for personal activities.")
         st.write("- Take short breaks during work hours to recharge and avoid burnout.")
         st.write("- Consider discussing workload concerns with your manager for possible adjustments.")
-    elif predicted_label == 2:
+    elif predicted_label == 3:
         st.write("⚖️ **Your work-life balance appears moderately affected.** ⚖️")
         st.write("- Set clear boundaries between work and personal life to maintain separation.")
         st.write("- Schedule regular breaks throughout the day to reduce stress and improve focus.")
         st.write("- Seek support from colleagues or mentors to discuss workload distribution.")
-    elif predicted_label == 3:
+    elif predicted_label == 4:
         st.write("😓 **Your work-life balance seems completely affected.** 😓")
         st.write("- Immediate action is crucial to restore a healthy work-life balance.")
         st.write("- Consider discussing workload concerns with your manager or HR for support.")
