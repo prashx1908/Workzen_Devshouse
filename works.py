@@ -76,14 +76,14 @@ st.sidebar.title("Hey Developers! Kindly Enter the Details")
 attrition_map = {'No': 0, 'Yes': 1}
 business_travel_map = {'Non-Travel': 0, 'Travel_Rarely': 1, 'Travel_Frequently': 2}
 education_map = {'Below College': 1, 'College': 2, 'Bachelor': 3, 'Master': 4, 'Doctor': 5}
-education_field_map = {'Life Sciences': 1, 'Medical': 2, 'Marketing': 3, 'Technical Degree': 4, 'Human Resources': 5, 'Other': 6}
+education_field_map = {'Computer Science': 1, 'Medical': 2, 'Engineering': 3, 'Technical Degree': 4, 'Human Resources': 5, 'Other': 6}
 environment_satisfaction_map = {'Low': 1, 'Medium': 2, 'High': 3, 'Very High': 4}
 gender_map = {'Male': 1, 'Female': 2}
 job_involvement_map = {'Low': 1, 'Medium': 2, 'High': 3, 'Very High': 4}
 job_role_map = {
-    'Sales Executive': 1, 'Research Scientist': 2, 'Laboratory Technician': 3,
-    'Manufacturing Director': 4, 'Healthcare Representative': 5, 'Manager': 6,
-    'Sales Representative': 7, 'Research Director': 8, 'Human Resources': 9
+    'Software Developer': 1, 'Data Scientist': 2, 'Security Engineer': 3,
+    'Research Engineer': 4, 'ML Engineer': 5, 'Manager': 6,
+    'Cloud Architect': 7, 'Web Developer': 8, 'Network Engineer': 9
 }
 job_satisfaction_map = {'Low': 1, 'Medium': 2, 'High': 3, 'Very High': 4}
 marital_status_map = {'Single': 1, 'Married': 2, 'Divorced': 3}
@@ -93,20 +93,20 @@ over_time_map = {'No': 0, 'Yes': 1}
 age = st.sidebar.number_input('Enter Age', step=1)
 attrition = st.sidebar.selectbox('Any plans of resigning?', list(attrition_map.keys()))
 business_travel = st.sidebar.selectbox('How comfortable are you with business travel?', list(business_travel_map.keys()))
-daily_rate = st.sidebar.number_input('What is your daily rate?', step=1)
-distance_from_home = st.sidebar.number_input('Distance From Home', step=1)
+daily_rate = st.sidebar.number_input('What is your daily rate? in $USD', step=1)
+distance_from_home = st.sidebar.number_input('Distance From Home in Miles', step=1)
 education = st.sidebar.selectbox('Maximum education?', list(education_map.keys()))
 education_field = st.sidebar.selectbox('Education Field?', list(education_field_map.keys()))
 environment_satisfaction = st.sidebar.selectbox('Work environment Satisfaction', list(environment_satisfaction_map.keys()))
 gender = st.sidebar.selectbox('Gender', list(gender_map.keys()))
-hourly_rate = st.sidebar.number_input('What is your hourly pay?', step=1)
+hourly_rate = st.sidebar.number_input('What is your hourly pay? in $USD', step=1)
 job_involvement = st.sidebar.selectbox('How involved are you in your job?', list(job_involvement_map.keys()))
 job_level = st.sidebar.number_input('Job Level?', step=1)
 job_role = st.sidebar.selectbox('Job Role?', list(job_role_map.keys()))
 job_satisfaction = st.sidebar.selectbox('Job Satisfaction?', list(job_satisfaction_map.keys()))
 marital_status = st.sidebar.selectbox('Marital Status?', list(marital_status_map.keys()))
-monthly_income = st.sidebar.number_input('Monthly Income?', step=1)
-monthly_rate = st.sidebar.number_input('What is your monthly pay?', step=1)
+monthly_income = st.sidebar.number_input('Monthly Income? in $USD', step=1)
+monthly_rate = st.sidebar.number_input('What is your monthly pay? in $USD', step=1)
 num_companies_worked = st.sidebar.number_input('Number of previous company experience?', step=1)
 over_time = st.sidebar.selectbox('Do you find yourself doing overtime?', list(over_time_map.keys()))
 percent_salary_hike = st.sidebar.number_input('Percentage of salary hike?', step=1)
