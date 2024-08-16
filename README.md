@@ -10,7 +10,7 @@ Mental health is an important aspect of overall well-being. Seraphina is a tool 
 
 ## Site Link
 - **WorkZen**:[Click Here](https://workzendevshouse-gf9k45uspbov3nj2z7m3tr.streamlit.app/)
-- ** Demo Video** : [Click Here] (https://drive.google.com/file/d/1KK4_nZ0GnpJhZm7OHaTYiRVq8s_mf2X8/view?usp=sharing)
+- **Demo Video** : [Click Here](https://drive.google.com/file/d/1KK4_nZ0GnpJhZm7OHaTYiRVq8s_mf2X8/view?usp=sharing)
 
 ## Features
 
