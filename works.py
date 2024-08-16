@@ -2,11 +2,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 
 primary_color = "#4B0082"
 secondary_color = "#C496A6"
 bg_color = "#F4EEFF"
-debug_color = "#800080"  # Purple color for debugging info
+debug_color = "#800080"
 
 def set_custom_theme():
     st.markdown(
@@ -14,10 +15,7 @@ def set_custom_theme():
         <style>
         .reportview-container .main .block-container{{
             max-width: 1000px;
-            padding-top: 2rem;
-            padding-right: 2rem;
-            padding-left: 2rem;
-            padding-bottom: 5rem;
+            padding: 2rem;
             font-weight: bold;
         }}
         .reportview-container .main{{
@@ -64,14 +62,12 @@ def set_custom_theme():
         unsafe_allow_html=True
     )
 
-
 df = pd.read_csv('extended_file6.csv')
-
 df = df.drop(['Department'], axis=1)
-
 
 st.sidebar.title("Hey Developers! Kindly Enter the Details")
 
+# Mapping categorical inputs to numerical values
 attrition_map = {'No': 0, 'Yes': 1}
 business_travel_map = {'Non-Travel': 0, 'Travel_Rarely': 1, 'Travel_Frequently': 2}
 education_map = {'Below College': 1, 'College': 2, 'Bachelor': 3, 'Master': 4, 'Doctor': 5}
@@ -88,7 +84,7 @@ job_satisfaction_map = {'Low': 1, 'Medium': 2, 'High': 3, 'Very High': 4}
 marital_status_map = {'Single': 0, 'Married': 1, 'Divorced': 2}
 over_time_map = {'No': 0, 'Yes': 1}
 
-
+# Sidebar inputs
 age = st.sidebar.number_input('Enter Age', step=1)
 attrition = st.sidebar.selectbox('Any plans of resigning?', list(attrition_map.keys()))
 business_travel = st.sidebar.selectbox('How comfortable are you with business travel?', list(business_travel_map.keys()))
@@ -119,71 +115,50 @@ years_in_current_role = st.sidebar.number_input('Years in Current Role?', step=1
 years_since_last_promotion = st.sidebar.number_input('Years Since Last Promotion?', step=1)
 years_with_curr_manager = st.sidebar.number_input('Years with Current Manager?', step=1)
 
+# Prepare input data for prediction
+input_data = np.array([age, attrition_map[attrition], business_travel_map[business_travel], daily_rate, distance_from_home, 
+                       education_map[education], education_field_map[education_field], 
+                       environment_satisfaction_map[environment_satisfaction], gender_map[gender], 
+                       hourly_rate, job_involvement_map[job_involvement], job_level, 
+                       job_role_map[job_role], job_satisfaction_map[job_satisfaction], 
+                       marital_status_map[marital_status], monthly_income, monthly_rate, 
+                       num_companies_worked, over_time_map[over_time], percent_salary_hike, 
+                       performance_rating, relationship_satisfaction, stock_option_level, 
+                       total_working_years, training_times_last_year, years_at_company, 
+                       years_in_current_role, years_since_last_promotion, 
+                       years_with_curr_manager]).reshape(1, -1)
 
-input_data = np.array([age, attrition_map[attrition], business_travel_map[business_travel], daily_rate, distance_from_home, education_map[education], 
-                       education_field_map[education_field], environment_satisfaction_map[environment_satisfaction], 
-                       gender_map[gender], hourly_rate, job_involvement_map[job_involvement], 
-                       job_level, job_role_map[job_role], job_satisfaction_map[job_satisfaction], 
-                       marital_status_map[marital_status], monthly_income, monthly_rate, num_companies_worked, 
-                       over_time_map[over_time], percent_salary_hike, performance_rating, relationship_satisfaction, 
-                       stock_option_level, total_working_years, training_times_last_year, years_at_company, 
-                       years_in_current_role, years_since_last_promotion, years_with_curr_manager]).reshape(1, -1)
-
-rf_classifier = RandomForestClassifier(random_state=42)
+# Train model with a train/test split for better validation
 X = df.drop(['WorkLifeBalance'], axis=1)
 y = df['WorkLifeBalance']
-rf_classifier.fit(X, y)
-
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+rf_classifier = RandomForestClassifier(random_state=42)
+rf_classifier.fit(X_train, y_train)
 
 def predict_outcome(input_data):
     predicted_outcome = rf_classifier.predict(input_data)
     return predicted_outcome
 
-
 def display_insights(predicted_label):
     if predicted_label == 1:
         st.write("🎉 **Congratulations! You have a healthy work-life balance.** 🎉")
-        st.write("- Keep maintaining a balance between your professional and personal life.")
-        st.write("- Consider engaging in hobbies or activities outside of work to continue feeling fulfilled.")
     elif predicted_label == 2:
         st.write("⏰ **Your work-life balance seems slightly affected.** ⏰")
-        st.write("- Prioritize time management techniques to allocate more time for personal activities.")
-        st.write("- Take short breaks during work hours to recharge and avoid burnout.")
-        st.write("- Consider discussing workload concerns with your manager for possible adjustments.")
     elif predicted_label == 3:
         st.write("⚖️ **Your work-life balance appears moderately affected.** ⚖️")
-        st.write("- Set clear boundaries between work and personal life to maintain separation.")
-        st.write("- Schedule regular breaks throughout the day to reduce stress and improve focus.")
-        st.write("- Seek support from colleagues or mentors to discuss workload distribution.")
     elif predicted_label == 4:
         st.write("😓 **Your work-life balance seems completely affected.** 😓")
-        st.write("- Immediate action is crucial to restore a healthy work-life balance.")
-        st.write("- Consider discussing workload concerns with your manager or HR for support.")
-        st.write("- Explore options for flexible work arrangements or time-off to recuperate.")
-
 
 def main():
-    logo = 'WORKZEN.png'
-    st.image(logo, width=300, caption="Empowering Work-Life Balance")
-    
+    st.image('WORKZEN.png', width=300, caption="Empowering Work-Life Balance")
     st.title("WorkZen - Your Integrity Partner")
-    st.write("Imagine a life where every developer is empowered with insights into their work-life balance, fostering a culture of well-being and productivity. Our prediction model, built with cutting-edge technology like StreamLit, not only forecasts productivity trends but also instills awareness in users about their work-life balance. By harnessing the power of data validation and settings management, we pave the way for a healthier and more efficient work environment. Join us in revolutionizing workspace productivity management and empowering individuals to thrive both professionally and personally.")
 
-    if st.sidebar.button("Predict Work-Life Balance"):
-        prediction = predict_outcome(input_data)
-        display_insights(prediction[0])
+    set_custom_theme()
 
-    st.write("## Feature Significance", className="debug-info")
- 
-    feature_importances = pd.Series(rf_classifier.feature_importances_, index=X.columns)
-    st.bar_chart(feature_importances)
-
-    st.write("Input Data Shape:", input_data.shape)
-    st.write("Input Data:", input_data)
-
-    predicted_label = predict_outcome(input_data)
-    st.write("Predicted Label:", predicted_label)
+    if st.sidebar.button("Submit"):
+        predicted_outcome = predict_outcome(input_data)
+        st.success(f"Predicted Work-Life Balance: {predicted_outcome[0]}")
+        display_insights(predicted_outcome[0])
 
 if __name__ == "__main__":
-    set_custom_theme()  
     main()
