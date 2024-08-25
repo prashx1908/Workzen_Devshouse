@@ -6,7 +6,7 @@ WorkZen is an interactive web application designed to help individuals understan
 
 ## Introduction
 
-Mental health is an important aspect of overall well-being. Seraphina is a tool that aims to provide insights into a user's mental state by analyzing various factors and symptoms. It provides tailored tips and resources based on the results of the analysis, which can help users take steps toward better mental health.
+Mental health is an important aspect of overall well-being. WorkZen is a tool that aims to provide insights into a user's mental state by analyzing various factors and symptoms. It provides tailored tips and resources based on the results of the analysis, which can help users take steps toward better mental health.
 
 ## Site Link
 - **WorkZen**:[Click Here](https://workzendevshouse-gf9k45uspbov3nj2z7m3tr.streamlit.app/)
